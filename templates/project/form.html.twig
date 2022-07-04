@@ -1,0 +1,41 @@
+{% extends "layout/default.html.twig" %}
+
+{% set title = "Nouveau projet" %}
+
+{% block body %}
+    <div class="container my-3">
+        {{ form_start(form) }}
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h1>{{ edit == true ? 'Modifier projet' : 'Nouveau projet' }}</h1>
+
+            <div class="d-inline-flex align-items-center justify-content-end">
+                <a href="{{ app.request.query.has('referer') ? app.request.query.get('referer') : path('project_index') }}"
+                   class="btn btn-dark me-2">Retour</a>
+                <button type="submit" class="btn btn-success">{{ edit == true ? 'Ajouter' : 'Modifier' }}</button>
+            </div>
+        </div>
+
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="row g-3">
+                    <div class="col-12">{{ form_row(form.name) }}</div>
+                    <div class="col-12">{{ form_row(form.description) }}</div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="row g-3">
+                    <div class="col-12">{{ form_row(form.estimated_time) }}</div>
+                    <div class="col-12 col-md-4">{{ form_row(form.start_at) }}</div>
+                    <div class="col-12 col-md-4">{{ form_row(form.forecast_at) }}</div>
+                    <div class="col-12 col-md-4">{{ form_row(form.ended_at) }}</div>
+                    <div class="col-12">{{ form_row(form.client) }}</div>
+                    <div class="col-12">{{ form_row(form.users) }}</div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

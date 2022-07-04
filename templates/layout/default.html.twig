@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% set current_cat = current_cat|default('index') %}
+
+{% block template %}
+    <header class="bg-white border-bottom sticky-top">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('index') }}">Project Manager</a>
+                <a href="{{ path('index') }}" class="btn btn-soft"><i class="bi bi-house"></i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarDesktop" aria-controls="mainNavbarDesktop" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavbarDesktop">
+                    <ul class="navbar-nav me-auto ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link{{ current_cat == 'index' ? ' active' }}" href="{{ path('index') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link{{ current_cat == 'project' ? ' active' }}" href="{{ path('project_index') }}">Projets</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle fs-5"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li class="px-3 pb-3 mb-2 border-bottom">
+                                    <span class="fw-bold d-block">{{ app.user }}</span>
+                                    <span class="text-muted small">{{ app.user.email }}</span>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ path('security_logout') }}">Me déconnecter</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        {{ block('body') }}
+    </main>
+{% endblock %}

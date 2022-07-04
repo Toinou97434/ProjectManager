@@ -1,0 +1,19 @@
+{% extends 'layout/default.html.twig' %}
+
+{% set title = "Mes projets" %}
+{% set current_cat = 'project' %}
+
+{% block body %}
+<div class="container-xxl my-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-inline-flex align-items-center justify-content-start">
+            <h1>Mes projets</h1>
+        </div>
+
+        <div class="d-inline-flex align-items-center justify-content-end">
+            <a href="{{ path('project_create', {referer: app.request.requestUri}) }}" class="btn btn-primary me-2"><i class="bi bi-plus me-2"></i>Nouveau projet</a>
+            <a href="#" class="btn btn-outline-primary"><i class="bi bi-calendar-event me-2"></i>Timesheet</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
