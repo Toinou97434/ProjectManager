@@ -11,7 +11,7 @@
             <div class="d-inline-flex align-items-center justify-content-end">
                 <a href="{{ app.request.query.has('referer') ? app.request.query.get('referer') : path('project_index') }}"
                    class="btn btn-dark me-2">Retour</a>
-                <button type="submit" class="btn btn-success">{{ edit == true ? 'Ajouter' : 'Modifier' }}</button>
+                <button type="submit" class="btn btn-success">{{ edit == true ? 'Modifier' : 'Ajouter' }}</button>
             </div>
         </div>
 
@@ -31,6 +31,12 @@
                     <div class="col-12 col-md-4">{{ form_row(form.forecast_at) }}</div>
                     <div class="col-12 col-md-4">{{ form_row(form.ended_at) }}</div>
                     <div class="col-12">{{ form_row(form.client) }}</div>
+                    {% for projectUsersForm in form.users %}
+                        <div class="col-xs-4">
+                            {{ form_errors(projectUserForm) }}
+                            {{ form_row(projectUserForm.user) }}
+                        </div>
+                    {% endfor %}
                     <div class="col-12">{{ form_row(form.users) }}</div>
                 </div>
             </div>

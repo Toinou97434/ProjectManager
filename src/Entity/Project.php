@@ -32,13 +32,13 @@ class Project
     #[ORM\Column(type: 'float', nullable: true)]
     private $estimated_time;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $start_at;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $forecast_at;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $ended_at;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -67,10 +67,10 @@ class Project
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'projects')]
     private $client;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects', cascade: ['persist'])]
     private $users;
 
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectTimesheet::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectTimesheet::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private $timesheets;
 
     public function __construct()
@@ -137,36 +137,36 @@ class Project
         return $this;
     }
 
-    public function getStartAt(): ?\DateTimeImmutable
+    public function getStartAt(): ?\DateTime
     {
         return $this->start_at;
     }
 
-    public function setStartAt(?\DateTimeImmutable $start_at): self
+    public function setStartAt(?\DateTime $start_at): self
     {
         $this->start_at = $start_at;
 
         return $this;
     }
 
-    public function getForecastAt(): ?\DateTimeImmutable
+    public function getForecastAt(): ?\DateTime
     {
         return $this->forecast_at;
     }
 
-    public function setForecastAt(?\DateTimeImmutable $forecast_at): self
+    public function setForecastAt(?\DateTime $forecast_at): self
     {
         $this->forecast_at = $forecast_at;
 
         return $this;
     }
 
-    public function getEndedAt(): ?\DateTimeImmutable
+    public function getEndedAt(): ?\DateTime
     {
         return $this->ended_at;
     }
 
-    public function setEndedAt(?\DateTimeImmutable $ended_at): self
+    public function setEndedAt(?\DateTime $ended_at): self
     {
         $this->ended_at = $ended_at;
 

@@ -1,2 +1,110 @@
-$font-size-base: .875rem !default;
-$link-decoration: none !default;
+$primary: #2f6ad9;
+$danger: #ed4c78;
+$success: #00c9a7;
+$warning: #f5ca99;
+$info: #09a5be;
+$secondary: #6d747b;
+$dark: #fff;
+
+$font-size-base: .85rem;
+$link-decoration: none;
+$enable-negative-margins: true;
+$border-radius-lg: 1rem;
+
+$body-bg: rgb(30, 32, 34) !default;
+$body-color: rgb(197, 200, 204) !default;
+
+$headings-font-family: "acumin-pro", "quincy-cf", "Open Sans", "Roboto", sans-serif;
+$headings-font-weight: 700;
+
+/** Spinners **/
+$spinner-width-sm:        .5rem !default;
+$spinner-height-sm:       $spinner-width-sm !default;
+$spinner-modal-margin: 1rem !default;
+
+/** Modals **/
+$modal-content-border-radius: 0 !default;
+$modal-content-border-width: 0 !default;
+
+$opacities: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100) !default;
+
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 3.5,
+  7: $spacer * 6,
+  8: $spacer * 7,
+  9: $spacer * 10
+) !default;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1440px
+) !default;
+
+$rotates: (10, 74, 130, 180, 186, 193) !default;
+$zindexes: (0, 1, 9, 99, 9999) !default;
+
+/** Dropdowns **/
+$dropdown-border-width: 0 !default;
+$dropdown-bg: rgb(42, 45, 48) !default;
+$dropdown-link-color: rgba(255, 255, 255, .7) !default;
+$dropdown-link-hover-bg: rgba(255, 255, 255, .075) !default;
+$dropdown-link-hover-color: rgba(211, 211, 211, .73) !default;
+
+/** Cards **/
+$card-bg: #25282a !default;
+$card-border-color: #2f3235 !default;
+
+/** Tables **/
+$table-cell-padding-y: 1rem;
+$table-cell-padding-x: .5rem;
+$table-cell-vertical-align: middle;
+$table-border-color: $card-border-color;
+
+/** Sidebar **/
+$sidebar-width: 16.25rem !default;
+$sidebar-bg: rgb(37, 40, 42) !default;
+
+$sidebar-border-width: .0625rem !default;
+$sidebar-border-color: rgb(47, 50, 53);
+
+$sidebar-link-color: rgba(white, .5);
+$sidebar-link-bg: transparent;
+$sidebar-link-weight: normal;
+
+$sidebar-link-hover-color: white;
+$sidebar-link-hover-bg: lighten($sidebar-bg, 5);
+$sidebar-link-hover-weight: normal;
+
+$sidebar-link-focus-color: white;
+$sidebar-link-focus-bg: darken($sidebar-bg, 5);
+$sidebar-link-focus-weight: normal;
+
+$sidebar-link-active-color: white;
+$sidebar-link-active-bg: darken($sidebar-bg, 5);
+$sidebar-link-active-weight: bolder;
+
+/** Header **/
+$header-bg: $sidebar-bg;
+$header-height: 3.875rem;
+$header-border-color: $sidebar-border-color;
+$header-border-width: $sidebar-border-width;
+
+/** Navs **/
+$nav-tabs-border-color: rgb(47, 50, 53) !default;
+
+/** Forms **/
+$input-border-color: $card-border-color !default;
+$input-focus-bg: $card-bg !default;
+
+/** Modals **/
+$modal-content-bg: $body-bg !default;

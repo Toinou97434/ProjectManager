@@ -1,48 +1,115 @@
 {% extends "base.html.twig" %}
 
 {% set current_cat = current_cat|default('index') %}
+{% set current_subcat = current_cat|default() %}
 
 {% block template %}
-    <header class="bg-white border-bottom sticky-top">
-        <nav class="navbar navbar-expand-md navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('index') }}">Project Manager</a>
-                <a href="{{ path('index') }}" class="btn btn-soft"><i class="bi bi-house"></i></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarDesktop" aria-controls="mainNavbarDesktop" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNavbarDesktop">
-                    <ul class="navbar-nav me-auto ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link{{ current_cat == 'index' ? ' active' }}" href="{{ path('index') }}">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link{{ current_cat == 'project' ? ' active' }}" href="{{ path('project_index') }}">Projets</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle fs-5"></i>
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-container">
+            <div class="sidebar-offset">
+                <button type="button" class="btn btn-close btn-close-white"></button>
+                <a href="{{ path('index') }}" class="sidebar-brand">ProjectManager</a>
+
+                <div class="sidebar-content">
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-header">Tableau de bord</li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('index') }}" class="sidebar-link{{ current_cat == 'index' ? ' active' }}">
+                                <i class="bi bi-sliders"></i>
+                                <span>Tableau de bord</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                                <li class="px-3 pb-3 mb-2 border-bottom">
-                                    <span class="fw-bold d-block">{{ app.user }}</span>
-                                    <span class="text-muted small">{{ app.user.email }}</span>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ path('security_logout') }}">Me déconnecter</a></li>
-                            </ul>
+                        </li>
+
+                        <li class="sidebar-header">Projets</li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('project_index') }}" class="sidebar-link{{ current_cat == 'project' ? ' active' }}">
+                                <i class="bi bi-bezier2"></i>
+                                <span>Projets</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('timesheet_index') }}" class="sidebar-link{{ current_cat == 'timesheet' ? ' active' }}">
+                                <i class="bi bi-calendar-event"></i>
+                                <span>Timesheet</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-header">Équipes</li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('index') }}" class="sidebar-link{{ current_cat == 'user' ? ' active' }}">
+                                <i class="bi bi-people"></i>
+                                <span>Utilisateurs</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('index') }}" class="sidebar-link{{ current_cat == 'team' ? ' active' }}">
+                                <i class="bi bi-collection"></i>
+                                <span>Équipes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('index') }}" class="sidebar-link{{ current_cat == 'job' ? ' active' }}">
+                                <i class="bi bi-card-list"></i>
+                                <span>Postes</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
 
+                <div class="sidebar-footer">
+                    <nav class="nav">
+                        <a class="nav-link" href="{{ path('index') }}"><i class="bi bi-house"></i></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </aside>
     <main role="main">
-        {{ block('body') }}
+        <header class="header">
+            <div class="d-inline-flex align-items-center justify-content-start">
+                <button type="button" class="btn btn-sidebar" data-controller="sidebar" data-sidebar-target="sidebar"><i class="bi bi-list"></i></button>
+            </div>
+
+            <div class="d-inline-flex align-items-center justify-content-end">
+                <ul class="nav">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <section id="dashboard-content" class="container-fluid">
+            <div id="dashboard-header" class="d-flex align-items-center justify-content-between">
+                <div class="d-inline-flex align-items-center justify-content-start">
+                    {% block header %}
+                        <h1 class="h3">Tableau de bord</h1>
+                    {% endblock %}
+                </div>
+
+                <div class="d-inline-flex align-items-center justify-content-end">
+                    {% block quick_links %}
+                        <a href="#" class="btn btn-primary">Nouveau</a>
+                    {% endblock %}
+                </div>
+            </div>
+
+            {{ block('body') }}
+        </section>
     </main>
+
+    {% block modals %}{% endblock %}
 {% endblock %}

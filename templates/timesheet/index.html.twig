@@ -1,0 +1,76 @@
+{% extends 'layout/default.html.twig' %}
+
+{% set title = "Timesheet" %}
+{% set current_cat = 'timesheet' %}
+
+{% block header %}
+    <h1 class="h3">Mon timesheet</h1>
+{% endblock %}
+
+{% block quick_links %}
+    <a href="#" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#newTimesheetFormModal"><i class="bi bi-plus me-2"></i>Nouveau temps</a>
+{% endblock %}
+
+{% block body %}
+    <div class="row g-3 align-items-center mb-3">
+        <div class="col text-start"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'date': -1})) }}" class="btn"><i class="bi bi-chevron-left me-2"></i>Date précédente</a></div>
+        <div class="col text-center"><span class="h5 mb-0">{{ 'now'|format_date('long') }}</span></div>
+        <div class="col text-end"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'date': -1})) }}" class="btn">Date suivante<i class="bi bi-chevron-right ms-2"></i></a></div>
+    </div>
+
+    <div class="row g-3 row-cols-1">
+        {% for object in objects %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="d-inline-flex flex-column">
+                                    <span>{{ object }}</span>
+                                    <span class="text-muted small">{{ object.client }}</span>
+
+                                    <div class="d-flex align-items-center mt-2">
+                                        <span class="badge bg-success">{{ 'project.days_left'|trans({days: object.estimatedTime}) }}</span>
+                                        <span class="mx-3"><i class="bi bi-arrow-right"></i></span>
+                                        <span class="badge bg-success">{{ 'project.days_left'|trans({days: object.forecastAt|date_diff}) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-inline-flex align-items-center">
+                                    <span class="pe-3 me-3 border-end">{{ 'project.minutes_spent'|trans({minutes: timesheet_minutes(object, app.user)}) }}</span>
+                                    <span>{{ timesheet_percent(object, app.user) }}</span>
+                                </div>
+                                {#<div class="form-floating">
+                                    <input type="number" class="form-control" id="timeSpent[{{ object.slug }}]" placeholder="Temps (en minutes)">
+                                    <label for="timeSpent[{{ object.slug }}]">Temps (en minutes)</label>
+                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <!-- Modal -->
+    <div class="modal fade" id="newTimesheetFormModal" tabindex="-1" aria-labelledby="newTimesheetFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTimesheetFormModalLabel">Nouveau timesheet</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <turbo-frame id="timesheet-form" src="{{ fragment_uri(controller('App\\Controller\\TimesheetController::_timesheetFormModal')) }}">
+                            {{ include('layout/includes/_loading.html.twig') }}
+                        </turbo-frame>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

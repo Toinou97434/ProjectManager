@@ -1,0 +1,38 @@
+.nav {
+  &.nav-tabs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+
+    .nav-item {
+      .nav-link {
+        border-top: transparent;
+        border-bottom: transparent;
+        border-right: transparent;
+        border-left: transparent;
+
+        padding: 1.25rem 1rem;
+        color: $sidebar-link-color;
+
+        &.active {
+          color: $white;
+          font-weight: bold;
+          border-bottom: 3px solid #383c40;
+          background-color: transparent;
+        }
+
+        &.disabled {
+          opacity: .5;
+        }
+
+        &:hover {
+          color: $sidebar-link-hover-color;
+        }
+      }
+    }
+  }
+}

@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'created_by', targetEntity: Project::class)]
     private $created_projects;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'users')]
     private $projects;
 
     public function __construct()

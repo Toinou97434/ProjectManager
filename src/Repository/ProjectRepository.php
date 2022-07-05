@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,45 @@ class ProjectRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getProjects(): mixed
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'pu')
+            ->leftJoin('p.users', 'pu')
+            ->getQuery()->getResult()
+        ;
+    }
+
+    public function getUserProjects(?User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'pu', 'pc', 'pt')
+            ->leftJoin('p.users', 'pu')
+            ->join('p.client', 'pc')
+            ->leftJoin('p.timesheets', 'pt')
+            ->where('pu.id IN (:user)')
+            ->setParameter('user', $user)
+            ->getQuery()->getResult()
+        ;
+    }
+
+    public function getUserProjectsWithTimesheet(?User $user, $date = null)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p', 'pu', 'pc', 'pt')
+            ->leftJoin('p.users', 'pu')
+            ->join('p.client', 'pc')
+            ->leftJoin('p.timesheets', 'pt')
+            ->where('pu.id IN (:user)')
+            ->andWhere('pt.created_by LIKE (:user)')
+            ->setParameter('user', $user)
+            ->andWhere('pt.created_at = :now')
+            ->setParameter('now', new \DateTime())
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

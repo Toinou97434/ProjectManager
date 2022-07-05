@@ -1,0 +1,19 @@
+project:
+  days_left: >-
+    {days, plural,
+        =0    {0 jours}
+        one   {1 jour}
+        other {# jours}
+    }
+  minutes_spent: >-
+    {minutes, plural,
+        =0    {0 minutes}
+        one   {1 minute}
+        other {# minutes}
+    }
+  hours_spent: >-
+    {hours, plural,
+        =0    {0 heures}
+        one   {1 heure}
+        other {# heures}
+    }

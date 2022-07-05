@@ -2,3 +2,34 @@
 
 @import "app/variables";
 @import "bootstrap/scss/bootstrap";
+
+@import "app/forms";
+@import "app/navs";
+@import "app/tables";
+@import "app/template";
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.turbo-loading, body.turbo-loaded {
+  .page-loading {
+    display: flex;
+    background: rgba($body-bg, .8);
+    z-index: 9999;
+  }
+}
+
+.page-loading {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+}

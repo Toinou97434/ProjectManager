@@ -1,0 +1,15 @@
+<turbo-frame id="timesheet-form" target="_top">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="row g-3">
+        <div class="col-12 col-md-4">{{ form_row(form.project) }}</div>
+        <div class="col-12 col-md-8">{{ form_row(form.length) }}</div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-md-between mt-3">
+        <button type="button" class="btn btn-underline" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-success btn-lg rounded">Ajouter</button>
+    </div>
+    {{ form_end(form) }}
+</turbo-frame>

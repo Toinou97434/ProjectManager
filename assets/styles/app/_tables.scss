@@ -1,0 +1,24 @@
+table {
+  thead {
+    tr {
+      vertical-align: bottom;
+      th {
+        font-size: .675rem;
+        text-transform: uppercase;
+        padding: .5rem .5rem !important;
+
+        a {
+          color: rgba($dark, .7);
+
+          &:hover {
+            color: rgba($dark, .9);
+          }
+        }
+      }
+    }
+  }
+
+  tbody {
+    border-top: 1px solid $table-border-color !important;
+  }
+}

@@ -44,30 +44,35 @@ class ProjectType extends AbstractType
                 'row_attr' => ['class' => 'form-floating'],
                 'attr' => ['placeholder' => 'Début le'],
                 'widget' => 'single_text',
-                'required' => true,
+                'required' => false,
             ])
             ->add('forecast_at', DateType::class, [
                 'label' => 'Fin prévue le',
                 'row_attr' => ['class' => 'form-floating'],
                 'attr' => ['placeholder' => 'Fin prévue le'],
                 'widget' => 'single_text',
-                'required' => true,
+                'required' => false,
             ])
             ->add('ended_at', DateType::class, [
                 'label' => 'Fin le',
                 'row_attr' => ['class' => 'form-floating'],
                 'attr' => ['placeholder' => 'Fin le'],
                 'widget' => 'single_text',
-                'required' => true,
+                'required' => false,
             ])
             ->add('client', EntityType::class, [
                 'label' => 'Client',
-//                'row_attr' => ['class' => 'form-floating'],
                 'attr' => ['placeholder' => 'Client'],
                 'class' => Client::class,
                 'autocomplete' => true,
             ])
-            ->add('users')
+            ->add('users', EntityType::class, [
+                'label' => 'Membres',
+                'class' => User::class,
+                'multiple' => true,
+                'required' => true,
+                'autocomplete' => true,
+            ])
         ;
     }
 
