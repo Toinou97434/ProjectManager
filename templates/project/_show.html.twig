@@ -1,0 +1,63 @@
+<turbo-frame id="project-show">
+    <div class="offcanvas-header justify-content-end">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="border-bottom px-3 py-4">
+            <h5 class="offcanvas-title" id="showProjectLabel">{{ object }}</h5>
+            <span class="d-block mb-5">{{ object.client }}</span>
+
+            <span class="d-block h6 fw-normal">Description du projet</span>
+            {{ object.description|nl2br }}
+        </div>
+
+        <div class="border-bottom px-3 py-4">
+            <span class="d-block h6 fw-normal">Timeline</span>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-inline-flex flex-column align-items-start">
+                    <span class="small text-muted">Débute le</span>
+                    <span>{{ object.startAt|format_date('short') }}</span>
+                </div>
+                <div class="d-inline-flex flex-column align-items-center">
+                    <span class="small text-muted">Fin estimée</span>
+                    <span>{{ object.forecastAt|format_date('short') }}</span>
+                </div>
+                <div class="d-inline-flex flex-column align-items-end">
+                    <span class="small text-muted">Terminé le</span>
+                    <span>{{ object.endedAt ? object.endedAt|format_date('short') : '--' }}</span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-fill align-items-center mt-3">
+                <span class="badge bg-{{ object.forecastAt|days_left > 0 ? 'success' : object.forecastAt|days_left < 0 ? 'danger' : 'warning' }} w-100 fs-5">{{ 'project.days_left'|trans({days: object.forecastAt|days_left}) }}</span>
+            </div>
+        </div>
+
+        <div class="border-bottom px-3 py-4">
+            <span class="d-block h6 fw-normal">Temps CDP</span>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-inline-flex flex-column align-items-start">
+                    <span class="small text-muted">Temps budgété</span>
+                    <span>{{ object.estimatedTime }}</span>
+                </div>
+                <div class="d-inline-flex flex-column align-items-end">
+                    <span class="small text-muted">Temps passé</span>
+                    <span>{{ time_spent(object, app.user) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-bottom px-3 py-4">
+            <span class="d-block h6 fw-normal">Equipe</span>
+
+            <div class="d-flex align-items-center justify-content-start">
+                {% for user in object.users %}
+                    <div class="avatar avatar-lg border border-dark border-2{{ not loop.first ? ' ms-n2' }}" data-controller="tooltip" title="{{ user }}" data-bs-placement="top">
+                        <img src="{{ user|avatar }}" alt="{{ user }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</turbo-frame>

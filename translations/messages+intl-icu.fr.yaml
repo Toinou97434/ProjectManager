@@ -1,10 +1,17 @@
 project:
+  days_estimated: >-
+    {days, plural,
+        =0    {0 jours budgétisés}
+        one   {1 jour budgétisé}
+        other {# jours budgétisés}
+    }
   days_left: >-
     {days, plural,
-        =0    {0 jours}
-        one   {1 jour}
-        other {# jours}
+        =0    {0 jours restants}
+        one   {1 jour restant}
+        other {# jours restants}
     }
+  days_used: "{days, number} consommés"
   minutes_spent: >-
     {minutes, plural,
         =0    {0 minutes}

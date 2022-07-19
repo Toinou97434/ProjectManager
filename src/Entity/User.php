@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'users')]
     private $projects;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserPicture $picture = null;
+
     public function __construct()
     {
         $this->managed_teams = new ArrayCollection();
@@ -349,6 +352,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeProject(Project $project): self
     {
         $this->projects->removeElement($project);
+
+        return $this;
+    }
+
+    public function getPicture(): ?UserPicture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(UserPicture $picture): self
+    {
+        // set the owning side of the relation if necessary
+        if ($picture->getUser() !== $this) {
+            $picture->setUser($this);
+        }
+
+        $this->picture = $picture;
 
         return $this;
     }

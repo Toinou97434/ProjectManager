@@ -8,7 +8,7 @@
         <div class="sidebar-container">
             <div class="sidebar-offset">
                 <button type="button" class="btn btn-close btn-close-white"></button>
-                <a href="{{ path('index') }}" class="sidebar-brand">ProjectManager</a>
+                <a href="{{ path('index') }}" class="sidebar-brand">PM</a>
 
                 <div class="sidebar-content">
                     <ul class="sidebar-nav">
@@ -20,6 +20,7 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-divider"></li>
                         <li class="sidebar-header">Projets</li>
                         <li class="sidebar-item">
                             <a href="{{ path('project_index') }}" class="sidebar-link{{ current_cat == 'project' ? ' active' }}">
@@ -33,7 +34,14 @@
                                 <span>Timesheet</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('admin_client_index') }}" class="sidebar-link{{ current_cat == 'client' ? ' active' }}">
+                                <i class="bi bi-building"></i>
+                                <span>Clients</span>
+                            </a>
+                        </li>
 
+                        <li class="sidebar-divider"></li>
                         <li class="sidebar-header">Équipes</li>
                         <li class="sidebar-item">
                             <a href="{{ path('index') }}" class="sidebar-link{{ current_cat == 'user' ? ' active' }}">

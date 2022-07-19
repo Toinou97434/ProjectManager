@@ -1,0 +1,27 @@
+{% extends 'layout/default.html.twig' %}
+
+{% set title = "Modifier client" %}
+{% set current_cat = 'client' %}
+
+{% block header %}
+    <h1 class="h3 mb-0">Modifier un client</h1>
+{% endblock %}
+
+{% block quick_links %}
+    {{ form_start(form) }}
+    <a href="{{ app.request.query.has('referer') ? app.request.query.get('referer') : path('admin_client_index') }}" class="btn btn-secondary"><i class="bi bi-chevron-left me-2"></i>Retour</a>
+    <button type="submit" class="btn btn-success">Modifier</button>
+{% endblock %}
+
+{% block body %}
+    {{ form_errors(form) }}
+    <div class="card">
+        <div class="card-body">
+            <div class="row g-3 row-cols-1">
+                <div class="col">{{ form_row(form.name) }}</div>
+                <div class="col">{{ form_row(form.description) }}</div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

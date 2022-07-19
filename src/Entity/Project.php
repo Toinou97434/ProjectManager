@@ -73,6 +73,9 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectTimesheet::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private $timesheets;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $erp_id;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -310,6 +313,18 @@ class Project
                 $timesheet->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getErpId(): ?int
+    {
+        return $this->erp_id;
+    }
+
+    public function setErpId(?int $erp_id): self
+    {
+        $this->erp_id = $erp_id;
 
         return $this;
     }

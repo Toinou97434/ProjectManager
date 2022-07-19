@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserTeam index{% endblock %}
+
+{% block body %}
+    <h1>UserTeam index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Slug</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>Deleted_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_team in user_teams %}
+            <tr>
+                <td>{{ user_team.id }}</td>
+                <td>{{ user_team.name }}</td>
+                <td>{{ user_team.description }}</td>
+                <td>{{ user_team.slug }}</td>
+                <td>{{ user_team.createdAt ? user_team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user_team.updatedAt ? user_team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user_team.deletedAt ? user_team.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_team_show', {'id': user_team.id}) }}">show</a>
+                    <a href="{{ path('app_admin_team_edit', {'id': user_team.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_team_new') }}">Create new</a>
+{% endblock %}

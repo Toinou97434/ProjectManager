@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProjectTimesheet;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,39 @@ class ProjectTimesheetRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getUserTimesheets(User $user, array $options = [])
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t', 'tp', 'tu')
+            ->join('t.project', 'tp')
+            ->join('t.created_by', 'tu')
+            ->where('t.created_by = :user')
+            ->setParameter('user', $user)
+        ;
+
+        if ($options) {
+            if (isset($options['project'])) {
+                $project = $options['project'];
+                $qb->andWhere('tp.id IN (:project)')
+                    ->setParameter('project', $project)
+                ;
+            }
+
+            if (isset($options['date'])) {
+                $date = $options['date'];
+                $start_date = $date->format('Y-m-d 00:00:00');
+                $end_date = $date->format('Y-m-d 23:59:59');
+
+                $qb->andWhere('t.created_at BETWEEN :start AND :end')
+                    ->setParameter('start', $start_date)
+                    ->setParameter('end', $end_date)
+                ;
+            }
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

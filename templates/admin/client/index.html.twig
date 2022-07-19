@@ -1,0 +1,65 @@
+{% extends 'layout/default.html.twig' %}
+
+{% set title = "Les clients" %}
+{% set current_cat = 'client' %}
+
+{% block header %}
+    <h1 class="h3 mb-0">Clients <span class="badge bg-secondary ms-3">{{ clients|length|format_number }}</span></h1>
+{% endblock %}
+
+{% block quick_links %}
+    <a href="#" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#newClientFormModal"><i class="bi bi-plus me-2"></i>Nouveau client</a>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="align-middle">
+                        <th scope="col"><i class="bi bi-hash fs-5"></i></th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Projets</th>
+                        <th>Statut</th>
+                        <th>Ajouté le</th>
+                        <th>Dernière modification</th>
+                        <th class="text-end"><i class="bi bi-gear fs-5"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client in clients %}
+                        <tr class="align-middle">
+                            <th scope="row">{{ client.id }}</th>
+                            <td>{{ client.name }}</td>
+                            <td>{{ client.description }}</td>
+                            <td>{{ client.projects|length|format_number }}</td>
+                            <td>{{ 'client.status' }}</td>
+                            <td>{{ client.createdAt ? client.createdAt|format_datetime('short', 'short') : '--' }}</td>
+                            <td>{{ client.updatedAt > client.createdAt ? client.updatedAt|format_datetime('short', 'short') : '--' }}</td>
+                            <td class="text-end">
+                                <a href="{{ path('admin_client_show', {'id': client.id}) }}" class="btn btn-sm btn-soft"><i class="bi bi-eye"></i></a>
+                                <a href="{{ path('admin_client_edit', {'id': client.id}) }}" class="btn btn-sm btn-soft"><i class="bi bi-pencil-square"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Aucune donnée...</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <!-- Modal -->
+    <div class="modal fade" id="newClientFormModal" tabindex="-1" aria-labelledby="newClientFormModalLabel" aria-hidden="true">
+        <turbo-frame id="create-form" class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-md-down" src="{{ path('admin_client_create_form_modal', {referer: app.request.requestUri}) }}">
+            {{ include('layout/includes/_loading.html.twig') }}
+        </turbo-frame>
+    </div>
+{% endblock %}

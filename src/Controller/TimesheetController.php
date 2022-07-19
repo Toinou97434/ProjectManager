@@ -17,12 +17,19 @@ class TimesheetController extends CoreController
     const REDIRECT_ROUTE = 'timesheet_index';
 
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $objects = $this->em->getRepository(Project::class)->getUserProjects($this->getUser());
+        $date = $request->query->get('current') ? new \DateTimeImmutable($request->query->get('current')) : new \DateTimeImmutable();
+
+        if ($request->query->has('show')) {
+            $date = $request->query->get('show') == 'prev' ? $date->modify('-1day') : $date->modify('+1day');
+        }
+
+        $objects = $this->em->getRepository(Project::class)->getUserProjects($this->getUser(), $date);
 
         return $this->render('timesheet/index.html.twig', [
-            'objects' => $objects
+            'objects' => $objects,
+            'date' => $date,
         ]);
     }
 

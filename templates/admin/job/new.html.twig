@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New UserJob{% endblock %}
+
+{% block body %}
+    <h1>Create new UserJob</h1>
+
+    {{ include('admin/job/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_job_index') }}">back to list</a>
+{% endblock %}

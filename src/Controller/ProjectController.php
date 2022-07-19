@@ -71,6 +71,7 @@ class ProjectController extends CoreController
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Request $request, Project $object): Response
     {
+        return $this->render('project/_show.html.twig', ['object' => $object]);
     }
 
     #[Route('/{id}/edit', name: 'edit')]

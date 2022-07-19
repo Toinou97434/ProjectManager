@@ -49,7 +49,7 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getUserProjects(?User $user)
+    public function getUserProjects(?User $user, \DateTimeImmutable $date = new \DateTimeImmutable())
     {
         return $this->createQueryBuilder('p')
             ->select('p', 'pu', 'pc', 'pt')

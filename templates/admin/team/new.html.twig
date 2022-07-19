@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New UserTeam{% endblock %}
+
+{% block body %}
+    <h1>Create new UserTeam</h1>
+
+    {{ include('admin/team/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_team_index') }}">back to list</a>
+{% endblock %}
